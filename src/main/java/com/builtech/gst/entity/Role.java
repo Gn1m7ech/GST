@@ -1,4 +1,4 @@
-package com.builtech.gst.entities;
+package com.builtech.gst.entity;
 
 import jakarta.persistence.*;
 import lombok.Data;

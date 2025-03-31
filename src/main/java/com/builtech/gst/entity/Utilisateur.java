@@ -1,21 +1,20 @@
-package com.builtech.gst.entities;
+package com.builtech.gst.entity;
 
 import jakarta.persistence.*;
 import lombok.Data;
-import lombok.NonNull;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
-import org.springframework.validation.annotation.Validated;
 
 import java.time.LocalDate;
 
 @Data
 @Entity
 @Table(name = "users")
-public class Utilisateur {
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn(name = "type", discriminatorType = DiscriminatorType.STRING)
+public abstract class Utilisateur {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     @Column(nullable = false)
     private String nom;
@@ -32,7 +31,7 @@ public class Utilisateur {
     @Column(nullable = false)
     private LocalDate updatedAt;
 
-    @OneToOne
+    @OneToOne(fetch = FetchType.LAZY)
     private Role role;
 
 }
