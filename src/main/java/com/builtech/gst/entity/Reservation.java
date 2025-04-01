@@ -25,15 +25,15 @@ public class Reservation {
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "client")
-    private Client client;
+    private User client;
 
     @ManyToOne(fetch = FetchType.EAGER)
     private Stade stade;
 
-    @OneToMany(mappedBy = "reservation", fetch = FetchType.EAGER)
+    @OneToMany(fetch = FetchType.EAGER)
     private List<Calendrier> calendriers;
 
-    @OneToMany(mappedBy = "reservation", fetch = FetchType.LAZY)
+    @OneToMany(fetch = FetchType.LAZY)
     private List<Notification> notification;
 
 }

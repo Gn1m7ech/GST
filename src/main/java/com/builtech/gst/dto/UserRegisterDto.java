@@ -1,22 +1,25 @@
 package com.builtech.gst.dto;
 
-public class UserRegister {
+import jakarta.persistence.Column;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+
+public class UserRegisterDto {
 
     private String nom;
     private String email;
     private String password;
     private String contact;
 
-    public UserRegister(String nom, String email, String password, String contact) {
+    public UserRegisterDto(String nom, String email, String password, String contact) {
         this.nom = nom;
         this.email = email;
         this.password = password;
         this.contact = contact;
     }
 
-    public UserRegister(){
-
-    }
+    public UserRegisterDto(){}
 
     public String getNom() {
         return nom;
@@ -49,5 +52,4 @@ public class UserRegister {
     public void setContact(String contact) {
         this.contact = contact;
     }
-
 }

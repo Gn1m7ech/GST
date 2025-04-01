@@ -11,13 +11,13 @@ import java.util.Optional;
 @Repository
 public interface RoleRepository extends JpaRepository<Role, Long> {
 
-    @Query("SELECT r FROM roles r WHERE r.role LIKE 'ADMIN' ")
+    @Query(value = "SELECT * FROM roles WHERE role = 'ADMIN' ", nativeQuery = true)
     Optional<Role> getAdminRole();
 
-    @Query("SELECT r FROM roles r WHERE r.role LIKE 'OWNER' ")
+    @Query(value = "SELECT * FROM roles WHERE role = 'OWNER' ", nativeQuery = true)
     Optional<Role> getOwnerRole();
 
-    @Query("SELECT r FROM roles r WHERE r.role LIKE 'CLIENT' ")
+    @Query(value = "SELECT * FROM roles WHERE role = 'CLIENT' ", nativeQuery = true)
     Optional<Role> getClientRole();
 
 }

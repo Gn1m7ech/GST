@@ -31,13 +31,13 @@ public class Stade {
     @UpdateTimestamp
     private LocalDate updatedAt;
 
-    @OneToOne(mappedBy = "stade")
-    private Owner owner;
+    @OneToOne
+    private User owner;
 
-    @OneToMany(mappedBy = "stade", fetch = FetchType.LAZY)
+    @OneToMany(fetch = FetchType.LAZY)
     private List<Reservation> reservations;
 
-    @OneToMany(mappedBy = "stade", fetch = FetchType.LAZY)
+    @OneToMany(fetch = FetchType.LAZY)
     private List<Calendrier> calendriers;
 
 }
