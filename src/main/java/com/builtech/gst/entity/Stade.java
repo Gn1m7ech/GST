@@ -1,35 +1,47 @@
 package com.builtech.gst.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
+import java.util.Date;
 import java.util.List;
 import java.util.Set;
 
 @Data
 @Entity
-@Table(name = "stadiums")
+@Table(name = "stades")
 public class Stade {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
+
     @Column(nullable = false)
     private String name;
+
     @Column(nullable = false)
     private String adresse;
+
     @Column(nullable = false)
-    private Set<String> locateAt;
+    private String location;
+
     @Column(nullable = false)
     private String contact;
-    private List<String> imageUrls;
-    @CreationTimestamp
-    private LocalDate createdAt;
+
+    @ElementCollection
+    @Lob
+    @JsonIgnore
+    private List<byte[]> images;
+
+    @CreationTimestamp()
+    private Date createdAt;
     @UpdateTimestamp
-    private LocalDate updatedAt;
+    private Date updatedAt;
 
     @OneToOne
     private User owner;

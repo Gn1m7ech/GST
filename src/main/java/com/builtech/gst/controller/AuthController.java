@@ -45,7 +45,12 @@ public class AuthController {
         User u = service.authenticate(user);
         String token = jwtUtils.generateToken(u);
 
-        UserConnected ud = new UserConnected(token,u.getId(), user.getUsername(), u.getRole().getRole());
+        UserConnected ud = new UserConnected();
+        ud.setUsername(u.getUsername());
+        ud.setUser_id(u.getId());
+        ud.setToken(token);
+        ud.setRole(u.getRole().getRole());
+
         return ResponseEntity.ok().body(ud);
     }
 }

@@ -1,4 +1,4 @@
-package com.builtech.gst.config;
+package com.builtech.gst.security;
 
 import com.builtech.gst.utils.JwtFilter;
 import org.springframework.context.annotation.Bean;
@@ -38,7 +38,7 @@ public class SecurityConfigs {
         http
                 .csrf(AbstractHttpConfigurer::disable)  // Désactive CSRF
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/auth/**").permitAll()  // Autorise les requêtes à "/auth/**"
+                        .requestMatchers("/stades/**").permitAll()  // Autorise les requêtes à "/auth/**"
                         .anyRequest().authenticated()  // Toutes les autres requêtes nécessitent une authentification
                 )
                 .sessionManagement(session -> session
