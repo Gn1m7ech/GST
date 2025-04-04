@@ -83,4 +83,11 @@ public class AuthenticationService {
         return userRepository.findByEmail(user.getUsername())
                 .orElseThrow(EntityNotFoundException::new);
     }
+
+    public User setOwner(long userId){
+        User user = userRepository.findById(userId).orElseThrow(EntityNotFoundException::new);
+        Role role = roleRepository.getOwnerRole().orElseThrow(EntityNotFoundException::new);
+        user.setRole(role);
+        return userRepository.save(user);
+    }
 }

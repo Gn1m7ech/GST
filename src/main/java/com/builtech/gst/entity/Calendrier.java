@@ -1,6 +1,7 @@
 package com.builtech.gst.entity;
 
 import jakarta.persistence.*;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
 import java.util.Date;
@@ -12,11 +13,11 @@ public class Calendrier {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-    @Column(nullable = false)
+
+    @DateTimeFormat(pattern = "dd/MM/yyyy HH:MM")
     private Date debut;
-    @Column(nullable = false)
+    @DateTimeFormat(pattern = "dd/MM/yyyy HH:MM")
     private Date fin;
-    @Column(nullable = false)
     private String status;
 
     public Calendrier(long id, Date debut, Date fin, String status) {

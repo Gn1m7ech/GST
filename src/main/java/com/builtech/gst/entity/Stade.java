@@ -13,29 +13,24 @@ import java.util.List;
 @Table(name = "stades")
 public class Stade {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @Column(nullable = false)
     private String name;
 
-    @Column(nullable = false)
     private String adresse;
 
-    @Column(nullable = false)
     private String location;
 
-    @Column(nullable = false)
     private String contact;
 
-    @ElementCollection
-    @Lob
+    @ElementCollection @Lob
     @JsonIgnore
     private List<byte[]> images;
 
-    @CreationTimestamp()
+    @CreationTimestamp
     private Date createdAt;
+
     @UpdateTimestamp
     private Date updatedAt;
 

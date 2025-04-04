@@ -6,14 +6,12 @@ import com.builtech.gst.dto.UserRegisterDto;
 import com.builtech.gst.entity.User;
 import com.builtech.gst.service.AuthenticationService;
 import com.builtech.gst.utils.JwtUtils;
+import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/auth")
+@RequestMapping("/gst/auth")
 public class AuthController {
 
     private final JwtUtils jwtUtils;
@@ -25,23 +23,19 @@ public class AuthController {
     }
 
     @PostMapping("/signup-ad")
-    public ResponseEntity<User> registerAdmin(@RequestBody UserRegisterDto user){
+    public ResponseEntity<User> registerAdmin(@RequestBody @Valid UserRegisterDto user){
         User u = service.signUpAdmin(user);
         return ResponseEntity.ok().body(u);
     }
 
-    @PostMapping("/signup-cli")
-    public ResponseEntity<User> registerClient(@RequestBody UserRegisterDto user){
+    @PostMapping("/signup")
+    public ResponseEntity<User> register(@RequestBody @Valid UserRegisterDto user){
         User u = service.signUpClient(user);
         return ResponseEntity.ok().body(u);
     }
 
-//    public ResponseEntity<User> registerAdmin(@RequestBody UserRegisterDto user){
-//
-//    }
-
     @PostMapping("/login")
-    public ResponseEntity<UserConnected> authenticate(@RequestBody UserLoginDto user){
+    public ResponseEntity<UserConnected> authenticate(@RequestBody @Valid UserLoginDto user){
         User u = service.authenticate(user);
         String token = jwtUtils.generateToken(u);
 
@@ -53,4 +47,10 @@ public class AuthController {
 
         return ResponseEntity.ok().body(ud);
     }
+
+    @PostMapping("/own/{userId}")
+    public ResponseEntity<User> setOwner(@PathVariable long userId){
+        return ResponseEntity.ok().body(service.setOwner(userId));
+    }
+
 }

@@ -10,7 +10,6 @@ public class Role {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @Column(nullable = false)
     private String role;
 
     public Role(long id, String role) {

@@ -1,7 +1,9 @@
 package com.builtech.gst.service;
 
 import com.builtech.gst.dto.UserRegisterDto;
+import com.builtech.gst.entity.Role;
 import com.builtech.gst.entity.User;
+import com.builtech.gst.repository.RoleRepository;
 import com.builtech.gst.repository.UserRepository;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -11,10 +13,12 @@ import org.springframework.stereotype.Service;
 public class UserService {
 
     private final UserRepository repository;
+    private final RoleRepository roleRepository;
     private final PasswordEncoder passwordEncoder;
 
-    public UserService(UserRepository repository, PasswordEncoder passwordEncoder) {
+    public UserService(UserRepository repository, RoleRepository roleRepository, PasswordEncoder passwordEncoder) {
         this.repository = repository;
+        this.roleRepository = roleRepository;
         this.passwordEncoder = passwordEncoder;
     }
 

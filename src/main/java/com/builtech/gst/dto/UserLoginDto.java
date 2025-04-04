@@ -1,8 +1,15 @@
 package com.builtech.gst.dto;
 
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotNull;
+
 public class UserLoginDto {
 
+    @NotNull
+    @Email
     private String username;
+
+    @NotNull
     private String password;
 
     public UserLoginDto(String username, String password) {

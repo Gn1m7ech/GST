@@ -1,8 +1,8 @@
 package com.builtech.gst.entity;
 
 import jakarta.persistence.*;
+import org.springframework.format.annotation.DateTimeFormat;
 
-import java.time.LocalDate;
 import java.util.Date;
 
 
@@ -13,13 +13,11 @@ public class Notification {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-    @Column(nullable = false)
+
+    @DateTimeFormat(pattern = "dd/MM/yyyy HH:MM")
     private Date notifiedAt;
-    @Column(nullable = false)
     private String objet;
-    @Column(nullable = false)
     private String message;
-    @Column(nullable = false)
     private String status;
 
     public Notification(long id, Date notifiedAt, String objet, String message, String status) {

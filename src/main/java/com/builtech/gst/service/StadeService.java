@@ -1,18 +1,18 @@
 package com.builtech.gst.service;
 
-import com.builtech.gst.dto.StadeRegister;
+import com.builtech.gst.dto.StadeDto;
 import com.builtech.gst.entity.Stade;
-import com.builtech.gst.entity.User;
 import com.builtech.gst.repository.StadeRepository;
 import com.builtech.gst.repository.UserRepository;
 import jakarta.persistence.EntityExistsException;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.stereotype.Service;
 
-import java.io.IOException;
+
+import java.util.ArrayList;
 import java.util.Base64;
 import java.util.List;
-import java.util.stream.Collectors;
+
 
 @Service
 public class StadeService {
@@ -25,7 +25,7 @@ public class StadeService {
         this.userRepository = userRepository;
     }
 
-    public Stade create(StadeRegister stadeRegister){
+    public Stade create(StadeDto stadeRegister){
 
         if(ifStadeExistsAtPlace(stadeRegister.getLocation()))
         {
@@ -48,7 +48,7 @@ public class StadeService {
         return repository.save(stade);
     }
 
-    public Stade update(long stadeId, StadeRegister stadeRegister){
+    public Stade update(long stadeId, StadeDto stadeRegister){
 
         Stade stade = repository.findById(stadeId).orElseThrow(EntityExistsException::new);
         stade.setName(stadeRegister.getName());
@@ -56,9 +56,15 @@ public class StadeService {
         stade.setAdresse(stadeRegister.getAdresse());
         stade.setLocation(stadeRegister.getLocation());
 
-       List<byte[]> imagesData = stadeRegister.getImages().stream()
-                .map(img -> Base64.getDecoder().decode(img.split(",")[1])) // Supprime le préfixe et décode
-                .toList();
+        List<byte[]> imagesData = new ArrayList<>();
+
+        if(stadeRegister.getImages().isEmpty()){
+            imagesData = null;
+        }else{
+            imagesData = stadeRegister.getImages().stream()
+                    .map(img -> Base64.getDecoder().decode(img.split(",")[1]))
+                    .toList();
+        }
 
         stade.setImages(imagesData);
 

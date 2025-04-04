@@ -1,11 +1,24 @@
 package com.builtech.gst.dto;
 
 
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
+import org.springframework.jmx.export.annotation.ManagedAttribute;
+
 public class UserRegisterDto {
 
+    @NotNull @Min(value = 10, message = "Entrez au minimum votre nom et le prenom")
     private String nom;
+
+    @NotNull @Email(message = "Votre information est incorrect")
     private String email;
+
+    @NotNull
     private String password;
+
+    @NotNull @Size(min = 8, max = 8, message = "only the 8 numbers without the country code")
     private String contact;
 
     public UserRegisterDto(String nom, String email, String password, String contact) {

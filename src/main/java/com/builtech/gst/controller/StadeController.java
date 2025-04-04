@@ -1,8 +1,9 @@
 package com.builtech.gst.controller;
 
-import com.builtech.gst.dto.StadeRegister;
+import com.builtech.gst.dto.StadeDto;
 import com.builtech.gst.entity.Stade;
 import com.builtech.gst.service.StadeService;
+import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -10,7 +11,7 @@ import java.security.InvalidParameterException;
 import java.util.List;
 
 @RestController
-@RequestMapping("/stades")
+@RequestMapping("/gst/stades")
 public class StadeController {
 
     private final StadeService service;
@@ -20,7 +21,7 @@ public class StadeController {
     }
 
     @PostMapping("/add")
-    public ResponseEntity<Stade> createStade(@RequestBody StadeRegister stade){
+    public ResponseEntity<Stade> createStade(@RequestBody @Valid StadeDto stade){
         if (stade.getName().isEmpty()||
                 stade.getAdresse().isEmpty()||
                 stade.getContact().isEmpty()||
@@ -32,7 +33,7 @@ public class StadeController {
     }
 
     @PutMapping("/update/{stadeId}")
-    public ResponseEntity<Stade> updateStade(@PathVariable long stadeId, @RequestBody StadeRegister stade){
+    public ResponseEntity<Stade> updateStade(@PathVariable long stadeId, @RequestBody @Valid StadeDto stade){
         if (stade.getName().isEmpty()||
                 stadeId==0||
                 stade.getAdresse().isEmpty()||

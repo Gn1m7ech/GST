@@ -1,8 +1,8 @@
 package com.builtech.gst.entity;
 
 import jakarta.persistence.*;
+import org.springframework.format.annotation.DateTimeFormat;
 
-import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 
@@ -13,13 +13,11 @@ public class Reservation {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-    @Column(nullable = false)
+
+    @DateTimeFormat(pattern = "dd/MM/yyyy HH:MM")
     private Date bookedAt;
-    @Column(nullable = false)
     private String type;
-    @Column(nullable = false)
     private long prix;
-    @Column(nullable = false)
     private String statut;
 
     public Reservation(long id, Date bookedAt, String type, long prix, String statut) {
