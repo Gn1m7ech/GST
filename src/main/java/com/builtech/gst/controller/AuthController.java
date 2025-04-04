@@ -47,7 +47,7 @@ public class AuthController {
 
         UserConnected ud = new UserConnected();
         ud.setUsername(u.getUsername());
-        ud.setUser_id(u.getId());
+        ud.setUserId(u.getId());
         ud.setToken(token);
         ud.setRole(u.getRole().getRole());
 

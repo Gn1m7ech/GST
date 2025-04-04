@@ -56,11 +56,7 @@ public class StadeService {
         stade.setAdresse(stadeRegister.getAdresse());
         stade.setLocation(stadeRegister.getLocation());
 
-        if (stadeRegister.getImages().isEmpty()){
-            return repository.save(stade);
-        }
-
-        List<byte[]> imagesData = stadeRegister.getImages().stream()
+       List<byte[]> imagesData = stadeRegister.getImages().stream()
                 .map(img -> Base64.getDecoder().decode(img.split(",")[1])) // Supprime le préfixe et décode
                 .toList();
 
@@ -68,6 +64,8 @@ public class StadeService {
 
         return repository.save(stade);
     }
+
+
 
     public Stade read(long stadeId){
         Stade stade = repository.findById(stadeId).orElseThrow(EntityNotFoundException::new);
