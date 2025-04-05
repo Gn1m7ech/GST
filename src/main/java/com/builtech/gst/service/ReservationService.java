@@ -1,7 +1,7 @@
 package com.builtech.gst.service;
 
-import com.builtech.gst.dto.CalendrierDto;
-import com.builtech.gst.dto.ReservationDto;
+import com.builtech.gst.dto.CalendrierRequest;
+import com.builtech.gst.dto.ReservationRequest;
 import com.builtech.gst.entity.Calendrier;
 import com.builtech.gst.entity.Reservation;
 import com.builtech.gst.entity.Stade;
@@ -31,7 +31,7 @@ public class ReservationService {
         this.stadeService = stadeService;
     }
 
-    public Reservation reserver(ReservationDto dto){
+    public Reservation reserver(ReservationRequest dto){
 
         Stade stade = stadeService.read(dto.getStade());
         User client = userService.read(dto.getClient());
@@ -42,7 +42,7 @@ public class ReservationService {
         reservation.setClient(client);
         reservation.setStatut("Pending");
 
-        List<CalendrierDto> c = dto.getCalendDtos();
+        List<CalendrierRequest> c = dto.getCalendDtos();
         int size = c.size();
 
         if(size>1){
@@ -54,7 +54,7 @@ public class ReservationService {
         }
 
         List<Calendrier> calendriers = c.stream()
-                .map(calendrierDto -> calendrierService.add(calendrierDto))
+                .map(calendrierRequest -> calendrierService.add(calendrierRequest))
                 .toList();
 
         reservation.setCalendriers(calendriers);

@@ -15,13 +15,9 @@ public class Stade {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-
     private String name;
-
     private String adresse;
-
     private String location;
-
     private String contact;
 
     @ElementCollection @Lob

@@ -1,13 +1,13 @@
 package com.builtech.gst.controller;
 
-import com.builtech.gst.dto.UserConnected;
-import com.builtech.gst.dto.UserLoginDto;
-import com.builtech.gst.dto.UserRegisterDto;
+import com.builtech.gst.dto.AuthResponse;
+import com.builtech.gst.dto.LoginRequest;
+import com.builtech.gst.dto.RegisterRequest;
 import com.builtech.gst.entity.User;
 import com.builtech.gst.service.AuthenticationService;
 import com.builtech.gst.utils.JwtUtils;
-import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -23,23 +23,23 @@ public class AuthController {
     }
 
     @PostMapping("/signup-ad")
-    public ResponseEntity<User> registerAdmin(@RequestBody @Valid UserRegisterDto user){
+    public ResponseEntity<User> registerAdmin(@RequestBody @Validated RegisterRequest user){
         User u = service.signUpAdmin(user);
         return ResponseEntity.ok().body(u);
     }
 
     @PostMapping("/signup")
-    public ResponseEntity<User> register(@RequestBody @Valid UserRegisterDto user){
+    public ResponseEntity<User> register(@RequestBody @Validated RegisterRequest user){
         User u = service.signUpClient(user);
         return ResponseEntity.ok().body(u);
     }
 
     @PostMapping("/login")
-    public ResponseEntity<UserConnected> authenticate(@RequestBody @Valid UserLoginDto user){
+    public ResponseEntity<AuthResponse> authenticate(@RequestBody @Validated LoginRequest user){
         User u = service.authenticate(user);
         String token = jwtUtils.generateToken(u);
 
-        UserConnected ud = new UserConnected();
+        AuthResponse ud = new AuthResponse();
         ud.setUsername(u.getUsername());
         ud.setUserId(u.getId());
         ud.setToken(token);

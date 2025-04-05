@@ -5,9 +5,8 @@ import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
-import org.springframework.jmx.export.annotation.ManagedAttribute;
 
-public class UserRegisterDto {
+public class RegisterRequest {
 
     @NotNull @Min(value = 10, message = "Entrez au minimum votre nom et le prenom")
     private String nom;
@@ -21,14 +20,14 @@ public class UserRegisterDto {
     @NotNull @Size(min = 8, max = 8, message = "only the 8 numbers without the country code")
     private String contact;
 
-    public UserRegisterDto(String nom, String email, String password, String contact) {
+    public RegisterRequest(String nom, String email, String password, String contact) {
         this.nom = nom;
         this.email = email;
         this.password = password;
         this.contact = contact;
     }
 
-    public UserRegisterDto() {
+    public RegisterRequest() {
     }
 
     public String getNom() {

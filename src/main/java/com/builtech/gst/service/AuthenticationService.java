@@ -1,7 +1,7 @@
 package com.builtech.gst.service;
 
-import com.builtech.gst.dto.UserLoginDto;
-import com.builtech.gst.dto.UserRegisterDto;
+import com.builtech.gst.dto.LoginRequest;
+import com.builtech.gst.dto.RegisterRequest;
 import com.builtech.gst.entity.Role;
 import com.builtech.gst.entity.User;
 import com.builtech.gst.repository.RoleRepository;
@@ -27,7 +27,7 @@ public class AuthenticationService {
         this.authenticationManager = authenticationManager;
     }
 
-    public User signUpAdmin(UserRegisterDto user){
+    public User signUpAdmin(RegisterRequest user){
         Role role = roleRepository.getAdminRole().orElse(null);
         if(role==null){
             throw new EntityNotFoundException("Role not found !");
@@ -42,7 +42,7 @@ public class AuthenticationService {
         return userRepository.save(user1);
     }
 
-    public User signUpClient(UserRegisterDto user){
+    public User signUpClient(RegisterRequest user){
         Role role = roleRepository.getClientRole().orElse(null);
         if(role==null){
             throw new EntityNotFoundException("Role not found !");
@@ -57,7 +57,7 @@ public class AuthenticationService {
         return userRepository.save(user1);
     }
 
-    public User signUpOwner(UserRegisterDto user){
+    public User signUpOwner(RegisterRequest user){
         Role role = roleRepository.getOwnerRole().orElse(null);
         if(role==null){
             throw new EntityNotFoundException("Role not found !");
@@ -72,7 +72,7 @@ public class AuthenticationService {
         return userRepository.save(user1);
     }
 
-    public User authenticate(UserLoginDto user){
+    public User authenticate(LoginRequest user){
         authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
                         user.getUsername(),

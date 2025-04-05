@@ -1,7 +1,6 @@
 package com.builtech.gst.service;
 
-import com.builtech.gst.dto.UserRegisterDto;
-import com.builtech.gst.entity.Role;
+import com.builtech.gst.dto.RegisterRequest;
 import com.builtech.gst.entity.User;
 import com.builtech.gst.repository.RoleRepository;
 import com.builtech.gst.repository.UserRepository;
@@ -22,7 +21,7 @@ public class UserService {
         this.passwordEncoder = passwordEncoder;
     }
 
-    public User update(long userId, UserRegisterDto user){
+    public User update(long userId, RegisterRequest user){
         User user1 = repository.findById(userId).orElse(null);
         if(user1==null){
             throw new EntityNotFoundException("USer not found !");

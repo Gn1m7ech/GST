@@ -1,6 +1,6 @@
 package com.builtech.gst.service;
 
-import com.builtech.gst.dto.CalendrierDto;
+import com.builtech.gst.dto.CalendrierRequest;
 import com.builtech.gst.entity.Calendrier;
 import com.builtech.gst.repository.CalendrierRepository;
 import jakarta.persistence.EntityNotFoundException;
@@ -17,10 +17,10 @@ public class CalendrierService {
         this.repository = repository;
     }
 
-    public Calendrier add(CalendrierDto calendrierDto){
+    public Calendrier add(CalendrierRequest calendrierRequest){
         Calendrier calendrier = new Calendrier();
-        calendrier.setDebut(calendrierDto.getDebut());
-        calendrier.setFin(calendrierDto.getFin());
+        calendrier.setDebut(calendrierRequest.getDebut());
+        calendrier.setFin(calendrierRequest.getFin());
         calendrier.setStatus("False");
         return repository.save(calendrier);
     }

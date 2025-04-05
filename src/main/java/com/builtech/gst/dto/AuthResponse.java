@@ -1,23 +1,20 @@
 package com.builtech.gst.dto;
 
-
-
-
-public class UserConnected {
+public class AuthResponse {
 
     public String username;
     public long userId;
     public String role;
     public String token;
 
-    public UserConnected(String username, long userId, String role, String token) {
+    public AuthResponse(String username, long userId, String role, String token) {
         this.username = username;
         this.userId = userId;
         this.role = role;
         this.token = token;
     }
 
-    public UserConnected() {
+    public AuthResponse() {
     }
 
     public String getUsername() {

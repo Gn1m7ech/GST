@@ -1,7 +1,8 @@
 package com.builtech.gst.service;
 
-import com.builtech.gst.dto.StadeDto;
+import com.builtech.gst.dto.StadeRequest;
 import com.builtech.gst.entity.Stade;
+import com.builtech.gst.entity.User;
 import com.builtech.gst.repository.StadeRepository;
 import com.builtech.gst.repository.UserRepository;
 import jakarta.persistence.EntityExistsException;
@@ -25,7 +26,9 @@ public class StadeService {
         this.userRepository = userRepository;
     }
 
-    public Stade create(StadeDto stadeRegister){
+    public Stade create(StadeRequest stadeRegister){
+
+        User owner = userRepository.findById(stadeRegister.getOwner()).orElseThrow(EntityNotFoundException::new);
 
         if(ifStadeExistsAtPlace(stadeRegister.getLocation()))
         {
@@ -37,18 +40,20 @@ public class StadeService {
         stade.setContact(stadeRegister.getContact());
         stade.setAdresse(stadeRegister.getAdresse());
         stade.setLocation(stadeRegister.getLocation());
+        stade.setOwner(owner);
 
         List<byte[]> imagesData = stadeRegister.getImages().stream()
                 .map(img -> Base64.getDecoder().decode(img.split(",")[1])) // Supprime le préfixe et décode
                 .toList();
 
         stade.setImages(imagesData);
+        Stade r = repository.save(stade);
+        owner.setStade(r);
 
-
-        return repository.save(stade);
+        return r;
     }
 
-    public Stade update(long stadeId, StadeDto stadeRegister){
+    public Stade update(long stadeId, StadeRequest stadeRegister){
 
         Stade stade = repository.findById(stadeId).orElseThrow(EntityExistsException::new);
         stade.setName(stadeRegister.getName());
@@ -67,11 +72,9 @@ public class StadeService {
         }
 
         stade.setImages(imagesData);
-
-        return repository.save(stade);
+        Stade r = repository.save(stade);
+        return r;
     }
-
-
 
     public Stade read(long stadeId){
         Stade stade = repository.findById(stadeId).orElseThrow(EntityNotFoundException::new);
@@ -80,6 +83,7 @@ public class StadeService {
 
     public String delete(long stadeId){
         Stade stade = repository.findById(stadeId).orElseThrow(EntityNotFoundException::new);
+        repository.delete(stade);
         return "Success";
     }
 

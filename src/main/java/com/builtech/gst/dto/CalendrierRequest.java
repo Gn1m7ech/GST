@@ -4,7 +4,7 @@ import jakarta.validation.constraints.NotNull;
 
 import java.util.Date;
 
-public class CalendrierDto {
+public class CalendrierRequest {
 
     @NotNull
     private Date debut;
@@ -12,12 +12,12 @@ public class CalendrierDto {
     @NotNull
     private Date fin;
 
-    public CalendrierDto(Date debut, Date fin) {
+    public CalendrierRequest(Date debut, Date fin) {
         this.debut = debut;
         this.fin = fin;
     }
 
-    public CalendrierDto() {
+    public CalendrierRequest() {
     }
 
     public Date getDebut() {

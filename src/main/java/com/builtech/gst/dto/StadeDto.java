@@ -1,39 +1,21 @@
 package com.builtech.gst.dto;
 
-
-import jakarta.validation.constraints.Min;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Size;
-
-import java.util.ArrayList;
-import java.util.List;
-
 public class StadeDto {
 
-    @NotNull
     private String name;
-
-    @NotNull
     private String adresse;
-
-    @NotNull
-    private String location;
-
-    @NotNull @Size(min = 8, max = 8, message = "only the 8 numbers without the country code")
+    private String localisation;
     private String contact;
 
-    @NotNull
-    private List<String> images = new ArrayList<>();
-
-    public StadeDto(String name, String adresse, String location, String contact, List<String> images) {
+    public StadeDto(String name, String adresse, String localisation, String contact) {
         this.name = name;
         this.adresse = adresse;
-        this.location = location;
+        this.localisation = localisation;
         this.contact = contact;
-        this.images = images;
     }
 
-    public StadeDto(){}
+    public StadeDto() {
+    }
 
     public String getName() {
         return name;
@@ -51,12 +33,12 @@ public class StadeDto {
         this.adresse = adresse;
     }
 
-    public String getLocation() {
-        return location;
+    public String getLocalisation() {
+        return localisation;
     }
 
-    public void setLocation(String location) {
-        this.location = location;
+    public void setLocalisation(String localisation) {
+        this.localisation = localisation;
     }
 
     public String getContact() {
@@ -66,13 +48,4 @@ public class StadeDto {
     public void setContact(String contact) {
         this.contact = contact;
     }
-
-    public List<String> getImages() {
-        return images;
-    }
-
-    public void setImages(List<String> images) {
-        this.images = images;
-    }
-
 }

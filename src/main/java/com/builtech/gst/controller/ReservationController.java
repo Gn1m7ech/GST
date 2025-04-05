@@ -1,6 +1,6 @@
 package com.builtech.gst.controller;
 
-import com.builtech.gst.dto.ReservationDto;
+import com.builtech.gst.dto.ReservationRequest;
 import com.builtech.gst.entity.Reservation;
 import com.builtech.gst.service.ReservationService;
 import jakarta.validation.Valid;
@@ -18,7 +18,7 @@ public class ReservationController {
     }
 
     @PostMapping("/new")
-    public ResponseEntity<Reservation> add(@RequestBody @Valid ReservationDto dto){
+    public ResponseEntity<Reservation> add(@RequestBody @Valid ReservationRequest dto){
         return ResponseEntity.ok(service.reserver(dto));
     }
 

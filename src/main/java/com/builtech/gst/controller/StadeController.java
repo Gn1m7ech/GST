@@ -1,6 +1,6 @@
 package com.builtech.gst.controller;
 
-import com.builtech.gst.dto.StadeDto;
+import com.builtech.gst.dto.StadeRequest;
 import com.builtech.gst.entity.Stade;
 import com.builtech.gst.service.StadeService;
 import jakarta.validation.Valid;
@@ -21,7 +21,7 @@ public class StadeController {
     }
 
     @PostMapping("/add")
-    public ResponseEntity<Stade> createStade(@RequestBody @Valid StadeDto stade){
+    public ResponseEntity<Stade> createStade(@RequestBody @Valid StadeRequest stade){
         if (stade.getName().isEmpty()||
                 stade.getAdresse().isEmpty()||
                 stade.getContact().isEmpty()||
@@ -33,7 +33,7 @@ public class StadeController {
     }
 
     @PutMapping("/update/{stadeId}")
-    public ResponseEntity<Stade> updateStade(@PathVariable long stadeId, @RequestBody @Valid StadeDto stade){
+    public ResponseEntity<Stade> updateStade(@PathVariable long stadeId, @RequestBody @Valid StadeRequest stade){
         if (stade.getName().isEmpty()||
                 stadeId==0||
                 stade.getAdresse().isEmpty()||
