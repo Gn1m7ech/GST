@@ -5,12 +5,12 @@ import com.builtech.gst.entity.Stade;
 import org.mapstruct.*;
 import org.mapstruct.factory.Mappers;
 
-@Mapper
+@Mapper(componentModel = "spring")
 public interface StadeMapper {
 
     StadeMapper INSTANCE = Mappers.getMapper(StadeMapper.class);
 
-    @Mapping(source = "location", target = "localisaation")
+    @Mapping(source = "location", target = "localisation")
     StadeDto stadeToDto(Stade stade);
 
 }

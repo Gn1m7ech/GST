@@ -38,7 +38,7 @@ public class SecurityConfigs {
         http
                 .csrf(AbstractHttpConfigurer::disable)  // Désactive CSRF
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/gst/stades/**").permitAll()  // Autorise les requêtes à "/auth/**"
+                        .requestMatchers("/gst/auth/**").permitAll()  // Autorise les requêtes à "/auth/**"
                         .anyRequest().authenticated()  // Toutes les autres requêtes nécessitent une authentification
                 )
                 .sessionManagement(session -> session

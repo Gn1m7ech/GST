@@ -5,7 +5,7 @@ import com.builtech.gst.entity.Reservation;
 import org.mapstruct.*;
 import org.mapstruct.factory.Mappers;
 
-@Mapper
+@Mapper(uses = CalendrierMapper.class, componentModel = "spring")
 public interface ReservationMapper {
 
     ReservationMapper INSTANCE = Mappers.getMapper(ReservationMapper.class);

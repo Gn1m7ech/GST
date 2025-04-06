@@ -8,10 +8,10 @@ import jakarta.validation.constraints.Size;
 
 public class RegisterRequest {
 
-    @NotNull @Min(value = 10, message = "Entrez au minimum votre nom et le prenom")
+    @NotNull
     private String nom;
 
-    @NotNull @Email(message = "Votre information est incorrect")
+    @NotNull @Email
     private String email;
 
     @NotNull

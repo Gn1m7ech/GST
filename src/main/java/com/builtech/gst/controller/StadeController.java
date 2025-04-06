@@ -1,10 +1,14 @@
 package com.builtech.gst.controller;
 
+import com.builtech.gst.dto.StadeDto;
 import com.builtech.gst.dto.StadeRequest;
 import com.builtech.gst.entity.Stade;
+import com.builtech.gst.mapper.StadeMapper;
 import com.builtech.gst.service.StadeService;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.InvalidParameterException;
@@ -15,13 +19,16 @@ import java.util.List;
 public class StadeController {
 
     private final StadeService service;
+    private final StadeMapper mapper;
 
-    public StadeController(StadeService service) {
+    public StadeController(StadeService service, StadeMapper mapper) {
         this.service = service;
+        this.mapper = mapper;
     }
 
     @PostMapping("/add")
-    public ResponseEntity<Stade> createStade(@RequestBody @Valid StadeRequest stade){
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<StadeDto> createStade(@RequestBody @Validated StadeRequest stade){
         if (stade.getName().isEmpty()||
                 stade.getAdresse().isEmpty()||
                 stade.getContact().isEmpty()||
@@ -29,11 +36,12 @@ public class StadeController {
             throw new InvalidParameterException();
         }
         Stade stade1 = service.create(stade);
-        return ResponseEntity.ok(stade1);
+        return ResponseEntity.ok(mapper.INSTANCE.stadeToDto(stade1));
     }
 
     @PutMapping("/update/{stadeId}")
-    public ResponseEntity<Stade> updateStade(@PathVariable long stadeId, @RequestBody @Valid StadeRequest stade){
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<StadeDto> updateStade(@PathVariable long stadeId, @RequestBody @Validated StadeRequest stade){
         if (stade.getName().isEmpty()||
                 stadeId==0||
                 stade.getAdresse().isEmpty()||
@@ -42,23 +50,29 @@ public class StadeController {
             throw new InvalidParameterException();
         }
         Stade r = service.update(stadeId, stade);
-        return ResponseEntity.ok(r);
+        return ResponseEntity.ok(mapper.INSTANCE.stadeToDto(r));
     }
 
     @GetMapping("/")
-    public ResponseEntity<List<Stade>> getAllStades(){
-        return ResponseEntity.ok(service.allStades());
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<List<StadeDto>> getAllStades(){
+        List<StadeDto> list = service.allStades().stream()
+                .map(stade -> mapper.INSTANCE.stadeToDto(stade) )
+                .toList();
+        return ResponseEntity.ok(list);
     }
 
     @GetMapping("/find/{stadeId}")
-    public ResponseEntity<Stade> findStade(@PathVariable long stadeId){
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<StadeDto> findStade(@PathVariable long stadeId){
         if(stadeId==0){
             throw new InvalidParameterException();
         }
-        return ResponseEntity.ok(service.read(stadeId));
+        return ResponseEntity.ok(mapper.INSTANCE.stadeToDto(service.read(stadeId)));
     }
 
     @DeleteMapping("/drop/{stadeId}")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<String> dropStade(@PathVariable long stadeId){
         if(stadeId==0){
             throw new InvalidParameterException();

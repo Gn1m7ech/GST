@@ -32,7 +32,7 @@ public class User implements UserDetails {
 
     public User(){}
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)
     private Role role;
 
     @OneToMany(fetch = FetchType.LAZY)

@@ -1,6 +1,7 @@
 package com.builtech.gst.dto;
 
 import java.util.Date;
+import java.util.List;
 
 public class ReservationDto {
 
@@ -9,14 +10,16 @@ public class ReservationDto {
     private Date bookedAt;
     private long price;
     private String status;
+    private List<CalendrierDto> calendriers;
     //Ajouter la liste des dates reservees
 
-    public ReservationDto(String client, String stade, Date bookedAt, long price, String status) {
+    public ReservationDto(String client, String stade, Date bookedAt, long price, String status, List<CalendrierDto> calendriers) {
         this.client = client;
         this.stade = stade;
         this.bookedAt = bookedAt;
         this.price = price;
         this.status = status;
+        this.calendriers = calendriers;
     }
 
     public ReservationDto() {
@@ -61,4 +64,13 @@ public class ReservationDto {
     public void setStatus(String status) {
         this.status = status;
     }
+
+    public List<CalendrierDto> getCalendriers() {
+        return calendriers;
+    }
+
+    public void setCalendriers(List<CalendrierDto> calendriers) {
+        this.calendriers = calendriers;
+    }
+
 }

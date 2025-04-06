@@ -3,6 +3,7 @@ package com.builtech.gst.config;
 import com.builtech.gst.dto.ErrorResponse;
 import jakarta.persistence.EntityExistsException;
 import jakarta.persistence.EntityNotFoundException;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -34,6 +35,12 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(EntityExistsException.class)
     public ResponseEntity<?> EntityExists(EntityExistsException e){
+        ErrorResponse error = new ErrorResponse(e.getMessage(),"Des informations deja utilisées !", LocalDateTime.now());
+        return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(DataIntegrityViolationException.class)
+    public ResponseEntity<?> DataIntegrity(DataIntegrityViolationException e){
         ErrorResponse error = new ErrorResponse(e.getMessage(),"Des informations deja utilisées !", LocalDateTime.now());
         return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
     }
